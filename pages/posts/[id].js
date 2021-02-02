@@ -44,8 +44,8 @@ export default function Page({ blog }) {
 }
 //
 export const getStaticPaths = async () => {
-  var content = "test_6"
-  var site_id = "60163322ee22c70d22a77687"  
+  var content = "posts"
+  var site_id = process.env.site_id  
   const res = await fetch(
     process.env.BASE_URL + `/api/get/find?content=${content}&site_id=${site_id}`
   );
@@ -67,7 +67,7 @@ export const getStaticProps = async context => {
   const postId = context.params.id
   const post = "po1"
 // console.log("postId=" ,postId)
-  var content = "test_6"
+  var content = "posts"
   var url = process.env.BASE_URL + `/api/get/findone?content=${content}&id=${postId}`
 // console.log(url)
   const res = await fetch( url);

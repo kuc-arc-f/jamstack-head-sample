@@ -6,14 +6,14 @@
 
  date    : 2021/01/30
 
- update  :
+ update  : 2021/02/02
 
 ***
 ### Summary
 
-Next.js + Headless CMS , Jamstack sample
+Next.js + Headless CMS , Jamstack SSG sample
 
-* Headless CMS : headless-1 by kuc-arc-f
+* Headless CMS : kuc-arc-f / headless-1
 
 https://github.com/kuc-arc-f/headless-1
 
@@ -27,7 +27,15 @@ npm install
 
 * .env
 
-if change URL,
+site_id: 
+
+setting required, headless-1 site_id (Top > site > Open)
+
+```
+site_id=1234
+```
+
+BASE_URL: if change Headless CMS URL,
 
 ```
 BASE_URL=http://localhost:3001
@@ -44,11 +52,11 @@ yarn dev
 yarn deploy
 
 ***
-### API  collection-Type
+### API  content-Type , sample
 
-content : test_5
+content : posts
 
-field:
+columns:
 
 ```
 title :  text
@@ -56,7 +64,11 @@ content :  text
 ```
 
 ***
-### Blog :
+### Blog : 
+
+* Headless CMS のような機能の作成【作例
+
+https://note.com/knaka0209/n/n98586919b8bd
 
 ***
 

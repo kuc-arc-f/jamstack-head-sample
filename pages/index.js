@@ -34,9 +34,9 @@ function Page(data) {
     )
   }
   export const getStaticProps = async context => {
-  //console.log( process.env.BASE_URL )
-    var content = "test_6"
-    var site_id = "60163322ee22c70d22a77687"
+console.log( process.env.site_id )
+    var content = "posts"
+    var site_id = process.env.site_id
     const res = await fetch(
       process.env.BASE_URL + `/api/get/find?content=${content}&site_id=${site_id}`
     );
