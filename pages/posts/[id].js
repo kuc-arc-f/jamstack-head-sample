@@ -4,7 +4,7 @@ import Link from 'next/link';
 import marked from  'marked'
 
 import Layout from '../../components/layout'
-//import LibCommon from '../libs/LibCommon'
+import LibCommon from '../../libs/LibCommon'
 //
 export default function Page({ blog }) {
 //  console.log(blog)
@@ -45,7 +45,7 @@ export default function Page({ blog }) {
 //
 export const getStaticPaths = async () => {
   var content = "posts"
-  var site_id = process.env.site_id  
+  var site_id = process.env.MY_SITE_ID  
   const res = await fetch(
     process.env.BASE_URL + `/api/get/find?content=${content}&site_id=${site_id}`
   );
@@ -65,16 +65,15 @@ export const getStaticPaths = async () => {
 };
 export const getStaticProps = async context => {
   const postId = context.params.id
-  const post = "po1"
-// console.log("postId=" ,postId)
   var content = "posts"
   var url = process.env.BASE_URL + `/api/get/findone?content=${content}&id=${postId}`
 // console.log(url)
   const res = await fetch( url);
-  const blog = await res.json();
+  var blog = await res.json();
+  blog  =  LibCommon.convertItemDate(blog)
 //console.log(blog)
   return {
-    props: { postId, post ,
+    props: {
       blog: blog
     },
   }

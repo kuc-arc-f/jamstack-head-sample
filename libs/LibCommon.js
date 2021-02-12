@@ -39,6 +39,14 @@ export default {
         var ret = str.substring(start ,len)
         return ret
     },
+    convertItemDate : function(item){
+//		var data ={}
+        var date = new Date(item.created_at)
+        date = this.formatDate(date, 'YYYY-MM-DD hh:mm')
+        item.created_at = date
+        return item
+    },    
+
     convert_items: function(items){
 		var data =[]
 		var self = this
@@ -51,7 +59,6 @@ export default {
         });        
         return data
     },    
-
     get_reverse_items: function(items){
 		var data =[]
 		var self = this

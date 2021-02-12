@@ -2,11 +2,13 @@ import Head from 'next/head';
 import Navibar from './Navibar';
 import Footer from './Footer';
 //
-function Layout({ children }) {
+function Layout({ props, children }) {
+//console.log( props )
+//  var site_name = process.env.SITE_NAME
   return (
     <div>
       <Head>
-        <title key="title">NextJs App</title>
+        <title key="title">CMS</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous" />
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet" />
@@ -23,5 +25,11 @@ function Layout({ children }) {
     </div>
   )
 }
-
+export const getStaticProps = async context => {
+  return {
+    props : {
+//      site_name : process.env.SITE_NAME
+    }
+  };
+}
 export default Layout

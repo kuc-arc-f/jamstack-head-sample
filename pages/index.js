@@ -1,15 +1,21 @@
 import React from 'react'
+import Head from 'next/head';
 
 import Layout from '../components/layout'
 import TopHeadBox from '../components/TopHeadBox'
+import PagingBox from '../components/PagingBox'
+import LibCommon from '../libs/LibCommon'
+import LibPagenate from '../libs/LibPagenate'
 import IndexRow from './IndexRow';
 //
 function Page(data) {
-  // console.log(data.blogs)
     var items = data.blogs
+    var paginateDisp = data.display    
+//console.log( items )
     return (
     <Layout>
-      <TopHeadBox />
+      <Head><title key="title">{data.site_name}</title></Head>      
+      <TopHeadBox site_name={data.site_name} />
       <div className="body_main_wrap">
         <div className="container">
           <div className="body_wrap">
@@ -26,6 +32,7 @@ function Page(data) {
                         date={item.created_at} />       
                 )
               })}
+              <PagingBox page="1" paginateDisp={paginateDisp} />
             </div>
           </div>          
         </div>
@@ -34,21 +41,22 @@ function Page(data) {
     )
   }
   export const getStaticProps = async context => {
-console.log( process.env.site_id )
+//console.log( process.env.site_id )
     var content = "posts"
-    var site_id = process.env.site_id
-    const res = await fetch(
-      process.env.BASE_URL + `/api/get/find?content=${content}&site_id=${site_id}`
+    var site_id = process.env.MY_SITE_ID
+    var url = process.env.BASE_URL+`/api/get/find?content=${content}&site_id=${site_id}`
+    url += `&skip=0&limit=10`    
+    const res = await fetch(url
     );
-    const blogs = await res.json();
-    const resCount = await fetch(
-      process.env.BASE_URL + `/api/get/count?content=${content}&site_id=${site_id}`
-    );
-//    const jsonCount = await resCount.json();
-//  console.log("count=", jsonCount.count)
+    var blogs = await res.json();
+    blogs = LibCommon.convert_items(blogs)
+    LibPagenate.init()
+    var display = LibPagenate.is_paging_display(blogs.length)          
     return {
       props : {
         blogs: blogs,
+        site_name : process.env.MY_SITE_NAME,
+        display: display,
       }
     };
   }
